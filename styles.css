@@ -1,0 +1,25 @@
+h1 {
+    font-weight: 300;
+}
+
+.form-titles {
+    font-size: smaller;
+}
+
+.form-control {
+    width: 100%;
+    border-width: 0.1px;
+    font-size: small;
+}
+
+.container {
+    width: 99%;
+}
+
+.btn {
+    background-color: #0077ff;
+    border-radius: 1px;
+    color: white;
+    font-size: small;
+    font-weight: lighter;
+}
