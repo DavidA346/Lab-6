@@ -56,4 +56,16 @@ app.post('/book/:isbn', (req, res) => {
     res.send('Book is edited');
 });
 
+app.delete('/book/:isbn', (req, res) => {
+    const isbn = req.params.isbn;
+    const bookIndex = books.findIndex(book => book.isbn === isbn);
+
+    if (bookIndex !== -1) {
+        books.splice(bookIndex, 1);
+        res.send("Book is deleted");
+    } else {
+        res.status(404).send("Book not found from api");
+    }
+});
+
 app.listen(port, () => console.log(`Hello world app listening on port ${port}`));

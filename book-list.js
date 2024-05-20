@@ -9,6 +9,8 @@ async function loadBooks () {
         console.log(data);
         const books = JSON.parse(data);
 
+        document.getElementById('books').innerHTML = '';
+
         for (let book of books) {
             const x = `
                 <div class="col-4">
@@ -23,7 +25,7 @@ async function loadBooks () {
 
                             <hr>
 
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-danger" onClick="deleteBook('${book.isbn}')">Delete</button>
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#editBookModal" onClick="setEditModal('${book.isbn}')">
                                 Edit
@@ -70,4 +72,27 @@ async function setEditModal (isbn) {
         //Setting up the action url for the book
         document.getElementById('editForm').action = `http://localhost:3000/book/${isbn}`;
     }
+}
+
+async function deleteBook (isbn) {
+    
+    let response = await fetch(`http://localhost:3000/book/${isbn}`, {
+        method: 'DELETE'
+    });
+
+    console.log(response.status); //200
+    console.log(response.statusText); //OK
+    let element = document.getElementById(`book-${isbn}`);
+    if (response.status === 200) {
+        if (element){
+            console.log(element);
+            element.remove();
+            console.log("Book deleted");
+        }
+        else {
+            console.error("Book element not found");
+        }
+    }
+
+    loadBooks();
 }
